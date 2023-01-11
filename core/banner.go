@@ -56,7 +56,7 @@ func printLogo(s string) {
 
 func printUpdateName() {
 	nameClr := color.New(color.FgHiRed)
-	txt := nameClr.Sprintf("                 - --  Gone Phishing  -- -")
+	txt := nameClr.Sprintf("                 - --  For the real Fishermen  -- -")
 	fmt.Fprintf(color.Output, "%s", txt)
 }
 
@@ -80,24 +80,23 @@ func printOneliner2() {
 func Banner() {
 	fmt.Println()
 
-	putAsciiArt("__                                     __\n")
 	putAsciiArt("_   @@     @@@@@@@@@@@@@@@@@@@     @@   _")
-	printLogo(`    ___________      __ __           __               `)
+	printLogo(` ██████╗ ██████╗ ██╗███╗   ██╗    ██████╗ ██╗  ██╗██╗███████╗██╗  ██╗███████╗██████╗ `)
 	fmt.Println()
 	putAsciiArt("  @@@@    @@@@@@@@@@@@@@@@@@@@@    @@@@  ")
-	printLogo(`    \_   _____/__  _|__|  |    ____ |__| ____ ___  ___`)
+	printLogo(`██╔════╝ ██╔══██╗██║████╗  ██║    ██╔══██╗██║  ██║██║██╔════╝██║  ██║██╔════╝██╔══██╗`)
 	fmt.Println()
 	putAsciiArt("  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ")
-	printLogo(`     |    __)_\  \/ /  |  |   / __ \|  |/    \\  \/  /`)
+	printLogo(`██║  ███╗██████╔╝██║██╔██╗ ██║    ██████╔╝███████║██║███████╗███████║█████╗  ██████╔╝`)
 	fmt.Println()
 	putAsciiArt("    @@@@@@@@@@###@@@@@@@###@@@@@@@@@@    ")
-	printLogo(`     |        \\   /|  |  |__/ /_/  >  |   |  \>    < `)
+	printLogo(`██║   ██║██╔══██╗██║██║╚██╗██║    ██╔═══╝ ██╔══██║██║╚════██║██╔══██║██╔══╝  ██╔══██╗`)
 	fmt.Println()
 	putAsciiArt("      @@@@@@@#####@@@@@#####@@@@@@@      ")
-	printLogo(`    /_______  / \_/ |__|____/\___  /|__|___|  /__/\_ \`)
+	printLogo(`╚██████╔╝██║  ██║██║██║ ╚████║    ██║     ██║  ██║██║███████║██║  ██║███████╗██║  ██║`)
 	fmt.Println()
 	putAsciiArt("       @@@@@@@###@@@@@@@###@@@@@@@       ")
-	printLogo(`            \/              /_____/         \/      \/`)
+	printLogo(` ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝`)
 	fmt.Println()
 	putAsciiArt("      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@      \n")
 	putAsciiArt("     @@@@@WW@@@WW@@WWW@@WW@@@WW@@@@@     ")
