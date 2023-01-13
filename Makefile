@@ -18,8 +18,3 @@ install:
 	@cp ./templates/* /usr/share/framework/templates/
 	@cp ./bin/$(TARGET) /usr/local/bin
 	
-re:
-	@go clean
-	@rm -f ./bin/$(TARGET)
-	@go build -o ./bin/$(TARGET) -mod=vendor
-
