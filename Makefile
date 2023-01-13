@@ -1,4 +1,4 @@
-TARGET=evilginx
+TARGET=framework
 PACKAGES=core database log parser
 
 .PHONY: all
