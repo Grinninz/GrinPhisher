@@ -229,7 +229,7 @@ func (p *Phishlet) LoadFromFile(site string, path string) error {
 		return err
 	}
 	if !p.isVersionHigherEqual(&p.Version, "2.2.0") {
-		return fmt.Errorf("this phishlet is incompatible with current version of evilginx.\nplease do the following modifications to update it:\n\n" +
+		return fmt.Errorf("this page is incompatible with current version of GrinPhisher.\nplease do the following modifications to update it:\n\n" +
 			"- in each `sub_filters` item change `hostname` to `triggers_on`\n" +
 			"- in each `sub_filters` item change `sub` to `orig_sub`\n" +
 			"- rename section `user_regex` to `username`\n" +
@@ -239,13 +239,13 @@ func (p *Phishlet) LoadFromFile(site string, path string) error {
 			"- move `username` and `password` into new `credentials` section\n" +
 			"- add `type` field to `username` and `password` with value 'post' or 'json'\n" +
 			"- change `min_ver` to at least `2.2.0`\n" +
-			"you can find the phishlet 2.2.0 file format documentation here: https://github.com/kgretzky/evilginx2/wiki/Phishlet-File-Format-(2.2.0)")
+			"- contact @Grinninz for additional help with updates")
 	}
 	if !p.isVersionHigherEqual(&p.Version, "2.3.0") {
-		return fmt.Errorf("this phishlet is incompatible with current version of evilginx.\nplease do the following modifications to update it:\n\n" +
+		return fmt.Errorf("this page is incompatible with current version of GrinPhisher.\nplease do the following modifications to update it:\n\n" +
 			"- replace `landing_path` with `login` section\n" +
 			"- change `min_ver` to at least `2.3.0`\n" +
-			"you can find the phishlet 2.3.0 file format documentation here: https://github.com/kgretzky/evilginx2/wiki/Phishlet-File-Format-(2.3.0)")
+			"- contact @Grinninz for additional help with updates")
 	}
 
 	fp := ConfigPhishlet{}
