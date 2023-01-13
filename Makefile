@@ -19,6 +19,7 @@ install:
 	@cp ./bin/$(TARGET) /usr/local/bin
 	
 re:
-	clean
-	build
+	@go clean
+	@rm -f ./bin/$(TARGET)
+	@go build -o ./bin/$(TARGET) -mod=vendor
 
