@@ -11,32 +11,7 @@ const (
 	VERSION = "2.4.2"
 )
 
-func putAsciiArt(s string) {
-	for _, c := range s {
-		d := string(c)
-		switch string(c) {
-		case " ":
-			color.Set(color.BgRed)
-			d = " "
-		case "@":
-			color.Set(color.BgBlack)
-			d = " "
-		case "#":
-			color.Set(color.BgHiRed)
-			d = " "
-		case "W":
-			color.Set(color.BgWhite)
-			d = " "
-		case "_":
-			color.Unset()
-			d = " "
-		case "\n":
-			color.Unset()
-		}
-		fmt.Print(d)
-	}
-	color.Unset()
-}
+
 
 func printLogo(s string) {
 	for _, c := range s {
