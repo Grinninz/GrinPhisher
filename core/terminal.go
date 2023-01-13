@@ -143,11 +143,11 @@ func (t *Terminal) DoWork() {
 			if err != nil {
 				log.Error("sessions: %v", err)
 			}
-		case "phishlets":
+		case "pages":
 			cmd_ok = true
 			err := t.handlePhishlets(args[1:])
 			if err != nil {
-				log.Error("phishlets: %v", err)
+				log.Error("pages: %v", err)
 			}
 		case "lures":
 			cmd_ok = true
