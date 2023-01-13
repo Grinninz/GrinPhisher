@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/kgretzky/framework2/core"
-	"github.com/kgretzky/framework2/database"
-	"github.com/kgretzky/framework2/log"
+	"github.com/kgretzky/evilginx2/core"
+	"github.com/kgretzky/evilginx2/database"
+	"github.com/kgretzky/evilginx2/log"
 )
 
 var pages_dir = flag.String("p", "", "pages directory path")
