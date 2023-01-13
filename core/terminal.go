@@ -268,7 +268,7 @@ func (t *Terminal) handleProxy(args []string) error {
 				return err
 			}
 			t.cfg.EnableProxy(true)
-			log.Important("you need to restart evilginx for the changes to take effect!")
+			log.Important("you need to restart GrinPhisher for the changes to take effect!")
 			return nil
 		case "disable":
 			err := t.p.setProxy(false, t.p.cfg.proxyType, t.p.cfg.proxyAddress, t.p.cfg.proxyPort, t.p.cfg.proxyUsername, t.p.cfg.proxyPassword)
