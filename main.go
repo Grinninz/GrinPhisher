@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/kgretzky/evilginx2/core"
-	"github.com/kgretzky/evilginx2/database"
-	"github.com/kgretzky/evilginx2/log"
+	"github.com/kgretzky/framework2/core"
+	"github.com/kgretzky/framework2/database"
+	"github.com/kgretzky/framework2/log"
 )
 
 var pages_dir = flag.String("p", "", "pages directory path")
@@ -128,13 +128,13 @@ func main() {
 			}
 			pname := rpname[1]
 			if pname != "" {
-				pl, err := core.Newpage(pname, filepath.Join(pages_path, f.Name()), cfg)
+				pl, err := core.NewPhishlet(pname, filepath.Join(pages_path, f.Name()), cfg)
 				if err != nil {
 					log.Error("failed to load page '%s': %v", f.Name(), err)
 					continue
 				}
 				//log.Info("loaded page '%s' made by %s from '%s'", pl.Name, pl.Author, f.Name())
-				cfg.Addpage(pname, pl)
+				cfg.AddPhishlet(pname, pl)
 			}
 		}
 	}
